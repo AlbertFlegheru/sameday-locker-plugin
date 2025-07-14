@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Alege Locker Sameday</title>
+    <script src="https://cdn.sameday.ro/locker-plugin/lockerpluginsdk.js"></script>
+  </head>
+  <body>
+    <script>
+      const clientId = "DEMO-CLIENT-ID";
+      const apiUsername = "demo_user";
+
+      window.LockerPlugin.init({
+        clientId: clientId,
+        countryCode: "RO",
+        langCode: "ro",
+        theme: "light",
+        apiUsername: apiUsername,
+        filters: [{ showLockers: true }],
+        initialMapCenter: "City"
+      });
+
+      const plugin = window.LockerPlugin.getInstance();
+
+      plugin.subscribe(function (msg) {
+        window.parent.postMessage(msg, "*");
+        plugin.close();
+      });
+
+      plugin.open();
+    </script>
+  </body>
+</html>
